@@ -13,10 +13,11 @@ stop-all.cmd   # stops both
 
 Docs live in `/docs`. The short context seed for new AI sessions is in `/docs/CONTEXT_SEED.md`.
 ## Project Docs
+- [Daily Summary Index](docs/DAILY_SUMMARY_INDEX.md)
+- Folder: `docs/daily-summaries/`
 - [Full Chat Index](docs/FULL_CHAT_INDEX.md)
 - Folder: `docs/full-chat-summaries/`
 - [Context Seed](docs/CONTEXT_SEED.md)
-- [Today’s Summary](docs/TODAY_SUMMARY_2025-10-02.md)
 - [Next Steps](docs/NEXT_STEPS.md)
 
 
