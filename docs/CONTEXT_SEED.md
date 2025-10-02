@@ -31,5 +31,8 @@
 - Keep Next.js/React versions consistent with the UI builder registry; TipTap stays on v2 for now.
 
 **Source Logs**
-- See [Full Chat Index](FULL_CHAT_INDEX.md) (all complete chat transcripts are listed there).
+- **Full chat transcripts:** see [FULL_CHAT_INDEX.md](FULL_CHAT_INDEX.md)  
+  (All files live in `docs/full-chat-summaries/`.)
+- **Daily summaries:** see [DAILY_SUMMARY_INDEX.md](DAILY_SUMMARY_INDEX.md)  
+  (All files live in `docs/daily-summaries/`.)
 
