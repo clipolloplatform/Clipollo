@@ -1,0 +1,48 @@
+
+Clipollo – Working Session Summary (2025-10-01)
+
+Scope covered (starting from “about to purchase the clipollo domain name”):
+1) Domains & hosting
+   - Registered clipollo.com at Name.com.
+   - Chose Cloudflare (Free) for DNS + Universal SSL; no paid WHOIS add-on.
+   - Updated nameservers to Cloudflare’s pair; zone active and proxied.
+   - Confirmed “Always Use HTTPS”/“Automatic HTTPS Rewrites” can be enabled in Cloudflare.
+
+2) Deploy/hosting strategy
+   - Decided not to use Vercel Pro yet (cost). Keep Cloudflare for DNS/SSL.
+   - Later: can add Vercel/Cloudflare Pages for hosting the marketing site; app remains local during MVP.
+
+3) UI builder integration
+   - Initialized shadcn/ui (Tailwind v4).
+   - Pulled UI-Builder registry.
+   - Fixed dependency conflicts by pinning `react-syntax-highlighter@15` and using ESM styles path:
+     `react-syntax-highlighter/dist/esm/styles/prism`.
+   - Created `/app/studio/page.tsx` host and wired imports.
+
+4) Bug fixes in progress
+   - `cn is not a function` at runtime: normalize imports to `import { cn } from "@/lib/utils"`.
+     > Search and replace in UI-Builder internal files; avoid malformed lines.
+   - Hydration mismatch: add `ThemeProvider` and `suppressHydrationWarning` in `app/layout.tsx`.
+   - Verified `lib/utils.ts` contains canonical shadcn `cn()` helper.
+
+5) Tooling/automation
+   - `run-all.bat` launches daemon + web; `stop-all.cmd` closes both (PID scan fallback works).
+   - Decided to create a “project brain” in `/docs` and keep a short context seed for new AI sessions.
+
+What’s still to do (short list)
+- Finish fixing any remaining wrong `cn` imports; rebuild `/studio`.
+- Apply theme wrapper (ThemeProvider) and retest hydration.
+- Commit the new `/docs` files; push to a private GitHub repo.
+- (Optional) create a small **public** `clipollo-specs` repo with sanitized `/docs` for fast AI context.
+- Add stubs to engine: `POST /library/scan`, `GET /library/list`, and a tiny UI button to call scan.
+
+Recommended next steps (order)
+1) Make the GitHub repo; add and commit this `/docs` starter and session summary.
+2) Finish UI-Builder fixes and get `/studio` working.
+3) Add the `ThemeProvider` change and verify no hydration errors.
+4) Add `/library/scan` endpoint in Rust (no heavy logic yet) and a button in `/studio` that hits it.
+5) Start simple logging of engine calls to aid debugging and unit tests.
+
+Notes
+- Cloudflare WHOIS privacy varies by registry; if you ever want it, enable privacy at Name.com.
+- Free SSL is provided by Cloudflare Universal SSL; origin certs can be added later if needed.

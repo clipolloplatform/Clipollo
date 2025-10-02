@@ -1,0 +1,49 @@
+# --- Node / Next.js
+web/.next/
+web/.turbo/
+web/node_modules/
+web/.vercel/
+web/.env
+web/.env.*.local
+web/npm-debug.log*
+web/yarn-error.log*
+web/pnpm-debug.log*
+
+# lockfile should be committed
+# !web/package-lock.json
+
+# --- Rust (engine)
+engine/target/
+engine/**/.cargo-ok
+**/*.rs.bk
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Cargo locks should be committed for apps
+# !engine/**/Cargo.lock
+
+# --- Logs & temp
+*.log
+*.tmp
+run-all.log
+stop-all.log
+
+# Project runtime artifacts
+*.pid
+*.log
+video-platform/run-all.log
+video-platform/stop-all.log
+stop-all.log
+
+# Media & cache
+sample-media/
+downloads/
+cache/
+
+# --- Misc
+*.bak
