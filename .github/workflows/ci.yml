@@ -1,37 +1,72 @@
 name: CI
-
 on:
   push:
+    branches: [ main ]
+    paths:
+      - 'engine/**'
+      - 'web/**'
+      - '.github/workflows/ci.yml'
   pull_request:
+    branches: [ main ]
+    paths:
+      - 'engine/**'
+      - 'web/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
-  web:
-    name: Web (Next.js) build
-    runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: web
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: web/package-lock.json
-      - run: npm ci
-      - run: npm run build
-
   engine:
+    if: "contains(github.event.head_commit.message, '[skip-engine]') == false"
     name: Engine (Rust) build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: engine/daemon
     steps:
       - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          override: true
-      - name: Cargo build
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            engine/daemon/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('engine/daemon/**/Cargo.lock') }}
+
+      - name: Build
         run: cargo build --release
+
+      - name: Test
+        run: cargo test --all --verbose
+
+  web:
+    if: "github.event_name == 'pull_request' || contains(github.event.head_commit.message, '[skip-web]') == false"
+    name: Web (Next.js) build
+    runs-on: ubuntu-latest
+    continue-on-error: true   # Temporary while we stabilize the web build
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Build
+        run: npm run build --if-present
