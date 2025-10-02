@@ -29,3 +29,7 @@
 - Work on feature branches, PR into `main`.
 - Commit lockfiles: `web/package-lock.json`, `engine/**/Cargo.lock`.
 - Keep Next.js/React versions consistent with the UI builder registry; TipTap stays on v2 for now.
+
+**Source Logs**
+- See [Full Chat Index](FULL_CHAT_INDEX.md) (all complete chat transcripts are listed there).
+
