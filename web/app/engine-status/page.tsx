@@ -22,16 +22,14 @@ export default async function EngineStatusPage() {
       <div className="max-w-xl w-full rounded-xl border p-6">
         <h1 className="text-2xl font-semibold mb-4">Engine Health</h1>
         {health.ok ? (
-          <pre className="bg-black/5 rounded p-4 text-sm">
-{JSON.stringify(health.data, null, 2)}
-          </pre>
+          <pre className="bg-black/5 rounded p-4 text-sm">{JSON.stringify(health.data, null, 2)}</pre>
         ) : (
           <div className="text-red-500">
             Couldn’t reach daemon: <span className="font-mono">{health.error}</span>
           </div>
         )}
         <div className="mt-4 text-sm text-muted-foreground">
-          If this shows <code>{"{ status: \"ok\" }"}</code> your Rust daemon is up.
+          If this shows <code>{"{ status: "ok" }"}</code> your Rust daemon is up.
         </div>
       </div>
     </main>
